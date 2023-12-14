@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -20,13 +21,25 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
+Route::get('/createpost', function () {
+    return view('createpost');
+})->name('createpost');
+
 Route::get('/login', function () {
     return view('login');
 })->name('login');
 
 
+
+
 Route::get('/', function () {
-    return view('home');
+    $posts=[];
+         if(auth()->check()){
+        $posts = auth()->user()->posts()->latest()->get();
+        //$posts = Post::all();
+    }
+         return view('home',['posts'=>$posts]);
+   
 });
 
 //UserControllers
@@ -36,3 +49,6 @@ Route::post('/login', [UserController::class, 'login']);
 
 //PostControllers
 Route::post('/create-post', [PostController::class, 'createPost']);
+Route::get('/edit-post/{post}', [PostController::class, 'editPost']);
+Route::put('/edit-post/{post}', [PostController::class, 'updatePost']);
+Route::delete('/delete-post/{post}', [PostController::class, 'deletePost']);
