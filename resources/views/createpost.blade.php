@@ -6,11 +6,13 @@
     <title>My Posts</title>
     @vite('resources/css/app.css')
 </head>
-<body>
+@include('navbar')
+<body class="body-style w-screen">
+
     @auth
 
-    <div class="flex-class">
-        <h1 class="text-3xl">Create a New Post</h1>
+    <div class="flex-class ">
+        <h1 class="text-3xl font-bold">Create a New Post</h1>
         <form class="flex-class" action="/create-post" method="POST">
             @csrf
             <input name="title" type="text" placeholder="Title">

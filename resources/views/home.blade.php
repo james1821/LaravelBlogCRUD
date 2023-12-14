@@ -5,9 +5,9 @@
     <title>Welcome</title>
     @vite('resources/css/app.css')
 </head>
-<body>
+<body >
     @auth
-
+  
     @include('mainpage')
     
     @else

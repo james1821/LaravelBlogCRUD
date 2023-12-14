@@ -17,4 +17,8 @@ class Post extends Model
     {
         return Carbon::parse($value)->setTimezone('Asia/Manila');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

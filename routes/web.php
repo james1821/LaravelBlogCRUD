@@ -29,6 +29,9 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+Route::get('/allposts', function () {
+    return view('allposts');
+})->name('allposts');
 
 
 
@@ -41,6 +44,18 @@ Route::get('/', function () {
          return view('home',['posts'=>$posts]);
    
 });
+
+Route::get('/allposts', function () {
+    $posts=[];
+         if(auth()->check()){
+       
+    $posts = Post::all();
+    }
+         return view('allposts',['posts'=>$posts]);
+   
+});
+
+
 
 //UserControllers
 Route::post('/register', [UserController::class, 'register']);

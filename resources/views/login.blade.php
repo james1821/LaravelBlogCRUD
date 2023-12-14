@@ -6,18 +6,20 @@
     <title>Login</title>
     @vite('resources/css/app.css')
 </head>
-<body>
+<body class="body-style">
     @auth
 
     @include('mainpage')
     
     @else
    
-    <div class="flex-class">
+    <div class="flex-class gap-10 border-black rounded-md border-solid border-8 p-10 md:w-1/2">
         <h1 class="text-3xl">LOGIN</h1>
-        <form class="flex-class" action="/login" method="POST">
+        <form class="flex-class gap-2" action="/login" method="POST">
             @csrf
+            <label for="login-name">Username</label>
             <input name="login-name"  type="text" placeholder="Name">
+            <label for="login-password">Password</label>
             <input name="login-password" type="password" placeholder="Password">
             <button class="btn-primary m-2">Login</button>
         </form>
