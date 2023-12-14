@@ -7,26 +7,16 @@
 </head>
 <body>
     @auth
-    <div class="flex-class">
-        <p>Logged In</p>
-    <form action="/logout" method="POST">
-    @csrf
-    <button class="">logout</button>
-    </form>
-    </div>
+
+    @include('mainpage')
     
     @else
 
+    @include('login')
+   
+
+    
     @endauth
-    <div class="flex-class">
-        <h1 class="text-3xl">REGISTER</h1>
-        <form class="flex-class" action="/register" method="POST">
-            @csrf
-            <input name="name"  type="text" placeholder="Name">
-            <input name="email" type="text" placeholder="Email">
-            <input name="password" type="password" placeholder="Password">
-            <button class="btn-primary m-2">Register</button>
-        </form>
-    </div>
+   
 </body>
 </html>
