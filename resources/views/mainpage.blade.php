@@ -16,13 +16,26 @@
     </div>
 
     <div class="flex-class">
-        <h1 class="text-3xl">Create a New Post</h1>
-        <form class="flex-class" action="/create-post" method="POST">
-            @csrf
-            <input name="title" type="text" placeholder="Title">
-            <textarea name="body" type="text" placeholder="Body"></textarea>
-            <button class="btn-primary m-2">Create a New Post</button>
-        </form>
+       
+        <div class="flex-class gap-5">
+            <h1 class="text-3xl">My posts</h1>
+            @foreach($posts as $post)
+                <div class="bg-gray-300 w-full h-full">
+                    <h3 class="text-2xl text-center">{{$post['title']}}</h3>
+                    <h3 class="text-xl text-center">Date: {{ \Carbon\Carbon::parse($post['created_at'])->format('jS \of F Y h:i:s A') }}</h3>
+                    <p>{{$post['body']}}</p>
+                    <a href="/edit-post/{{ $post->id }}" class="btn-warning">Update</a>
+                <form action="/delete-post/{{ $post->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                    <button class="btn-danger">Delete</button>
+                </form>
+                </div>
+            @endforeach
+        </div>
+
+        <a href="{{ url('createpost') }}" class="btn-primary">Create A New Post</a>
+
     </div>
 
    
