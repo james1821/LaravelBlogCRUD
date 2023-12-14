@@ -5,10 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+    public function login(Request $request){
+        //This are the fields and conditions before user can proceed
+        $LoginData = $request->validate([
+            'login-name'=>['required'],
+            'login-password'=>['required']
+        ]);
+       
+        if(auth()->attempt(['name'=>$LoginData['login-name'],'password'=>$LoginData['login-password']])){
+            $request->session()->regenerate();
+        }
+        return redirect('/');
+
+        
+    }
+
     public function register(Request $request){
         //This are the fields and conditions before user can proceed
         $RegisterData = $request->validate([
@@ -21,6 +37,11 @@ class UserController extends Controller
         auth()->login($user);
         return redirect('/');
 
-        return 'Hello';
+      
+    }
+
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
     }
 }
